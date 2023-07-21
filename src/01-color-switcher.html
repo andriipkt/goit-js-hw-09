@@ -5,12 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Color switcher</title>
     <link rel="stylesheet" href="css/common.css" />
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      button {
+        margin: auto;
+        padding: 12px 24px;
+        border-radius: 0%;
+        border-color: aliceblue;
+
+        font-size: 24px;
+        font-family: sans-serif;
+      }
+
+      p a {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 17px 10px;
+      }
+
+      .active {
+        opacity: 0.5;
+        border: none;
+      }
+    </style>
   </head>
   <body>
     <p><a href="index.html">Go back</a></p>
 
-    <button type="button" data-start>Start</button>
-    <button type="button" data-stop>Stop</button>
+    <div class="container">
+      <button type="button" data-start>Start</button>
+
+      <button type="button" data-stop>Stop</button>
+    </div>
 
     <script src="js/01-color-switcher.js" type="module"></script>
   </body>
