@@ -1,7 +1,8 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
-// const calendar = document.querySelector('#datetime-picker');
+import Notiflix from 'notiflix';
+
 const datetimePicker = document.getElementById('datetime-picker');
 const startButton = document.querySelector('[data-start]');
 const daysElem = document.querySelector('[data-days]');
@@ -14,10 +15,30 @@ const options = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+
+  onChange(selectedDates) {
+    const selectedDate = selectedDates[0];
+    const currentDate = new Date();
+
+    if (selectedDate <= currentDate) {
+      startButton.disabled = true;
+    } else {
+      startButton.disabled = false;
+    }
+  },
+
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    const selectedDate = selectedDates[0];
+    const currentDate = new Date();
+
+    if (selectedDate <= currentDate) {
+      Notiflix.Notify.failure('Please choose a date in the future');
+    }
   },
 };
+//
+
+flatpickr(datetimePicker, options);
 
 // functions
 function convertMs(ms) {
@@ -39,4 +60,45 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 //
-flatpickr(datetimePicker, options);
+
+//
+function addLeadingZero(value) {
+  return String(value).padStart(2, '0');
+}
+//
+
+//
+function interfaceChangeTime(ms) {
+  const { days, hours, minutes, seconds } = convertMs(ms);
+
+  daysElem.textContent = days >= 100 ? days : addLeadingZero(days);
+  hoursElem.textContent = addLeadingZero(hours);
+  minutesElem.textContent = addLeadingZero(minutes);
+  secondsElem.textContent = addLeadingZero(seconds);
+}
+//
+
+//
+function startTimer(targetDate) {
+  const countdownInterval = setInterval(() => {
+    const currentDate = new Date();
+    const timeDifference = targetDate - currentDate;
+
+    if (timeDifference <= 0) {
+      clearInterval(countdownInterval);
+      interfaceChangeTime(0);
+    } else {
+      interfaceChangeTime(timeDifference);
+    }
+  }, 1000);
+}
+//
+
+//button
+startButton.addEventListener('click', () => {
+  const selectedDate = new Date(datetimePicker.value);
+
+  if (selectedDate) {
+    startTimer(selectedDate);
+  }
+});
