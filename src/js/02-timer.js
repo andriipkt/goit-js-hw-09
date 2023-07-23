@@ -87,12 +87,26 @@ function startTimer(targetDate) {
     if (timeDifference <= 0) {
       clearInterval(countdownInterval);
       interfaceChangeTime(0);
+      blockInterface(false);
     } else {
       interfaceChangeTime(timeDifference);
     }
   }, 1000);
+
+  blockInterface(true);
 }
 //
+
+//
+function blockInterface(isBlocked) {
+  if (isBlocked) {
+    datetimePicker.disabled = true;
+    startButton.disabled = true;
+  } else {
+    datetimePicker.disabled = false;
+    startButton.disabled = false;
+  }
+}
 
 //button
 startButton.addEventListener('click', () => {
@@ -102,15 +116,3 @@ startButton.addEventListener('click', () => {
     startTimer(selectedDate);
   }
 });
-
-function blockInterface() {
-  if (startTimer) {
-    datetimePicker.disabled = true;
-    startButton.disabled = true;
-  } else {
-    datetimePicker.disabled = false;
-    startButton.disabled = false;
-  }
-}
-
-blockInterface();

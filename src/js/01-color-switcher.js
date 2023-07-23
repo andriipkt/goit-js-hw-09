@@ -23,12 +23,18 @@ startButton.addEventListener('click', () => {
   startButton.classList.add('active');
   stopButton.classList.remove('active');
 
+  startButton.disabled = true;
+  stopButton.disabled = false;
+
   colorInterval = setInterval(colorSwitcher, 1000);
 });
 
 stopButton.addEventListener('click', () => {
   stopButton.classList.add('active');
   startButton.classList.remove('active');
+
+  stopButton.disabled = true;
+  startButton.disabled = false;
 
   clearInterval(colorInterval);
 });
