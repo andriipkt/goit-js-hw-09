@@ -91,6 +91,9 @@ function startTimer(targetDate) {
       interfaceChangeTime(timeDifference);
     }
   }, 1000);
+
+  datetimePicker.disabled = true;
+  startButton.disabled = true;
 }
 //
 
