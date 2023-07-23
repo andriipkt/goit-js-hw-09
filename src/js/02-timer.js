@@ -91,9 +91,6 @@ function startTimer(targetDate) {
       interfaceChangeTime(timeDifference);
     }
   }, 1000);
-
-  datetimePicker.disabled = true;
-  startButton.disabled = true;
 }
 //
 
@@ -106,5 +103,14 @@ startButton.addEventListener('click', () => {
   }
 });
 
-datetimePicker.disabled = false;
-startButton.disabled = false;
+function blockInterface() {
+  if (startTimer) {
+    datetimePicker.disabled = true;
+    startButton.disabled = true;
+  } else {
+    datetimePicker.disabled = false;
+    startButton.disabled = false;
+  }
+}
+
+blockInterface();
