@@ -105,3 +105,6 @@ startButton.addEventListener('click', () => {
     startTimer(selectedDate);
   }
 });
+
+datetimePicker.disabled = false;
+startButton.disabled = false;
